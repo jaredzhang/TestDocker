@@ -8,9 +8,7 @@ node() {
   stage 'Create Env'
   //docker.image('jaredzhang09/android-docker:latest').inside('-it --volume=$(pwd):/opt/workspace --workdir=/opt/workspace ') { c ->  
     stage 'Build'
-    sh "${prefix} ls"
-    sh "${prefix} pwd"
-    sh "${prefix} gradle assembleDebug"
+    sh "${prefix} gradle clean assembleDebug"
     archive 'app/build/outputs/**/app-debug.apk'
 
     stage 'Quality'
