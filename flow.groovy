@@ -4,9 +4,10 @@ node() {
   stage 'Checkout'
   checkout scm
 
-  prefix = 'docker run -i --rm --volume=${PWD}:/opt/workspace --workdir=/opt/workspace jaredzhang09/android-docker:latest'
+  //prefix = 'docker run -i --rm --volume=${PWD}:/opt/workspace --workdir=/opt/workspace jaredzhang09/android-docker:latest'
+  prefix=''
   stage 'Create Env'
-  //docker.image('jaredzhang09/android-docker:latest').inside('-it --volume=$(pwd):/opt/workspace --workdir=/opt/workspace ') { c ->  
+  docker.image('jaredzhang09/android-docker:latest').inside('-it --volume=$(pwd):/opt/workspace --workdir=/opt/workspace ') { c ->  
     stage 'Build'
     sh "${prefix} gradle clean assembleDebug"
     archive 'app/build/outputs/**/app-debug.apk'
@@ -28,7 +29,7 @@ node() {
     // Archive for downstream AWS job
     archive 'app/build/outputs/**/*androidTest*.apk'
   }
-//}
+}
 
 node() {
   build "${env.JOB_NAME} (AWS)"
