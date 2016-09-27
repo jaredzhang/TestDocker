@@ -4,7 +4,7 @@ node() {
   stage 'Checkout'
   checkout scm
 
-  prefix = 'docker run -i --rm --volume=${PWD}:/opt/workspace --workdir=/opt/workspace jaredzhang09/android-docker:latest'
+  prefix = 'docker run -i --rm --volume=${PWD}:/opt/workspace -u="jenkins" --workdir=/opt/workspace jaredzhang09/android-docker:latest'
   stage 'Create Env'
   //docker.image('jaredzhang09/android-docker:latest').inside('-it --volume=$(pwd):/opt/workspace --workdir=/opt/workspace ') { c ->  
     stage 'Build'
