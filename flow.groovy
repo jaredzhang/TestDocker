@@ -10,9 +10,6 @@ node() {
     docker.image('jaredzhang09/android-docker-minimum:latest').inside {  
       
       stage ('Build') {
-        sh "pwd"
-        sh "ls"
-        sh "id"
         sh "./gradlew clean assembleDebug"
         archive 'app/build/outputs/**/app-debug.apk'
       }
