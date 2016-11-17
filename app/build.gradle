@@ -43,3 +43,12 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.2.1'
     testCompile 'junit:junit:4.12'
 }
+
+task bumpVersion {
+    if (project.hasProperty('newVersion')) {
+        def propsFile = file("gradle.properties")
+        Properties props = new Properties()
+        props.setProperty('version', newVersion)
+        props.store(propsFile.newWriter(), null)
+    }
+}
