@@ -44,7 +44,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-task bumpVersion {
+task bumpVersion << {
     if (project.hasProperty('newVersion') && !version.equals(newVersion)) {
         def propsFile = file("gradle.properties")
         Properties props = new Properties()
