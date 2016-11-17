@@ -45,10 +45,12 @@ dependencies {
 }
 
 task bumpVersion {
-    if (project.hasProperty('newVersion')) {
+    if (project.hasProperty('newVersion') && !version.equals(newVersion)) {
         def propsFile = file("gradle.properties")
         Properties props = new Properties()
         props.setProperty('version', newVersion)
         props.store(propsFile.newWriter(), null)
+    } else {
+        throw new GradleException('invalid version specified')
     }
 }
