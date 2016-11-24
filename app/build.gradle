@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'maven-publish'
+apply from: 'versioning.gradle'
+
+def archiveName = "SB-$version" + (System.getenv("BUILD_NUMBER") ? "-"+System.getenv("BUILD_NUMBER") : "")
 
 android {
     compileSdkVersion 24
@@ -8,8 +11,9 @@ android {
         applicationId "com.jaredzhang.testdocker"
         minSdkVersion 15
         targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        versionCode buildVersionCode()
+        versionName version
+        setProperty("archivesBaseName", archiveName)
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -51,15 +55,4 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:24.2.1'
     testCompile 'junit:junit:4.12'
-}
-
-task bumpVersion << {
-    if (project.hasProperty('newVersion') && !version.equals(newVersion)) {
-        def propsFile = file("gradle.properties")
-        Properties props = new Properties()
-        props.setProperty('version', newVersion)
-        props.store(propsFile.newWriter(), null)
-    } else {
-        throw new GradleException('invalid version specified')
-    }
 }
