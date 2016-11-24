@@ -33,6 +33,15 @@ android {
             signingConfig signingConfigs.debugConfig
         }
     }
+    productFlavors {
+        dev {
+
+        }
+
+        prod {
+
+        }
+    }
 }
 
 dependencies {
